@@ -60,4 +60,5 @@ Job Posting:
 * As a visitor, I want to see a list of cities on the homepage I might be interested in.
 * As a visitor, I want to be able to click on a city, and see a list of programming languages I might be interested in.
 * As a visitor on the Jobs Index page, I want to be able to read a summary of the jobs available
-* As a visitor on the Jobs Inex page, I want to be able to click on a job title, and be taken to a detail page for that job.
+* As a visitor on the Jobs Index page, I want to be able to click on a job title, and be taken to a detail page for that job.
+* As a visitor on the jobs Index page, until there are results to show, I want to see a 'Loading' indicator.

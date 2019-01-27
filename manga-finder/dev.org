@@ -1,0 +1,100 @@
+# JSON APIs
+
+## Postman
+JSON APIs by definition a just data, and because of that can feel a bit challenging to work with.  Thankfully, there are tools available to help us interact with an API, and dig deep into the data for a better understanding of how the API is organized.  One such tool is Postman.
+
+### Install Instructions
+Postman can be [downloaded from here](https://www.getpostman.com/downloads/).
+
+Once downloaded, double click on the zipped file, and move the application to your Applications folder.
+
+
+### Exploring an API
+In this example, we're going to be exploring the excellent Japanese Anime API called "Jikan".
+
+[Read the Jikan docs here](https://jikan.docs.apiary.io/#).
+
+From the docs, we can find the base URL for the API is: ```https://api.jikan.moe/v3```
+
+and if we use Postman to get that endpoint, we get some high level information:
+
+
+```javascript
+// GET: https://api.jikan.moe/v3
+{
+    "Author": "@irfanDahir",
+    "Contact": "irfan@dahir.co",
+    "JikanREST": "3.2",
+    "JikanPHP": "2.6.1",
+    "Website": "https://jikan.moe",
+    "Docs": "https://jikan.docs.apiary.io",
+    "GitHub": "https://github.com/jikan-me/jikan",
+    "PRODUCTION_API_URL": "https://api.jikan.moe/v3/",
+    "STATUS_URL": "https://status.jikan.moe"
+}
+```
+
+Digging a little deeper into their docs, we can see that search is supported.  We can search 4 main categories, for any topic we're interested in.  A search URL is constructed like so:
+
+    https://api.jikan.moe/v3/search/manga?q=naruto
+    https://api.jikan.moe/v3/search/character?q=naruto
+
+    //Use a '+' to represent whitespace in a query string.
+    https://api.jikan.moe/v3/search/manga?q=dragon+ball
+
+We Can also see that we can get all of the details of a Manga, Anime, Character, or Person by requesting their detail page like this:
+
+    https://api.jikan.moe/v3/manga/42
+    https://api.jikan.moe/v3/anime/194
+    https://api.jikan.moe/v3/person/2398
+    https://api.jikan.moe/v3/character/100
+
+
+## Using Fetch to get Data in React
+Fetch is a function built into javascript to pull data or files into our application from somewhere on the internet.  Fetch uses promises to handle the asynchronous requests.  In its simplest form, fetch works like this:
+
+```Javascript
+fetch(<url>).then((rawResponse)=>{
+  //return the part of the response we're interested in
+  return rawResponse.json()
+}).then(parsedResponse) => {
+  //do what we need to with the parsedResponse, a JS object in this case
+})
+```
+
+So, for example on our Anime Index page, we need to make a request out to the Jikan api to get a list of results to show to the user.  Let's take a look at doing this from within our sample application:
+
+```Javascript
+componentWillMount(){
+  fetch("https://api.nasa.gov/neo/rest/v1/feed?"+`start_date=${this.state.startDate}&api_key=${<your apikey>}`).then((rawResponse)=>{
+    // rawResponse.json() returns a promise that we pass along
+    return rawResponse.json()
+  }).then((parsedResponse) => {
+
+    // when this promise resolves, we can work with our data
+    let neoData = parsedResponse.near_earth_objects
+
+    let newAsteroids = []
+    Object.keys(neoData).forEach((date)=>{
+      neoData[date].forEach((asteroid) =>{
+        newAsteroids.push({
+          id: asteroid.neo_reference_id,
+          name: asteroid.name,
+          date: asteroid.close_approach_data[0].close_approach_date,
+          diameterMin: asteroid.estimated_diameter.feet.estimated_diameter_min.toFixed(0),
+          diameterMax: asteroid.estimated_diameter.feet.estimated_diameter_max.toFixed(0),
+          closestApproach: asteroid.close_approach_data[0].miss_distance.miles,
+          velocity: parseFloat(asteroid.close_approach_data[0].relative_velocity.miles_per_hour).toFixed(0),
+          distance: asteroid.close_approach_data[0].miss_distance.miles
+        })
+      })
+    })
+
+    // state is updated when promises are resolved
+    this.setState({asteroids: newAsteroids})
+  })
+}
+```
+
+# Challenges
+* Update the challenges you've worked on so far to pull live data from the API
