@@ -1,0 +1,63 @@
+# Github Jobs App
+In this exercise, we're going to create a full-featured application that allows the user to search for jobs that are listed on Github.
+
+## Topics
+* Javascript
+* React
+* Search
+* JSON
+* API requests
+* Index vs. Detail requests
+
+## Discussion
+### Limited Results
+Github's job only reaches a small fraction of the comnpanies with job oppenings, so you're likely to find entire cities, and perhaps even states that have no results.  For example, as I write this, only one job in San Diego is listed, and there are many, many more jobs than that open there.  As a consequence of this, we need to think carefully about our UI interface we provide.  Do we want to provide a simple and powerful freeform text based search interface like Google, or do we want a more guided experience?  In this case, freeform text input would likely frustrate our users with a lot of empty results, and a guided interface is better.
+
+### Think about your URLS
+There are quite a few pages in this challenge.  It will be helpful to spend some time thinking about the URLs that you will use to maintain state throughout the user interaction.  Here are some suggestions to get you started:
+
+Homepage:
+
+    /
+City:
+
+    /city/san+jose
+    /city/seattle
+    etc...
+
+Jobs Index:
+
+    /city/san+jose/description/ruby
+    /city/New+York/description/frontend
+    etc..
+
+Job Posting:
+
+    /position/aaabbbcccdd
+    /position/ddddeeefffggg"
+    etc...
+
+** Note about the Job Posting URL,  If you do like is suggested above, you'll loose the ability to go back to the Language and city pages other than using the back button.  You could also construct your URL's like this to allow for navigating up the tree:
+
+    /city/san+jose/description/ruby/position/aaabbbccc
+
+
+## Wireframes
+
+### Homepage
+![homepage wire](../../assets/github-jobs-home.png)
+
+### City page
+![City Page](../../assets/github-jobs-city.png)
+
+### Jobs Index
+![Job Listing Page](../../assets/github-jobs-index.png)
+
+### Job Details
+![Job Detail](../../assets/github-jobs-detail.png)
+
+## Stories
+* As a visitor, I want to see a list of cities on the homepage I might be interested in.
+* As a visitor, I want to be able to click on a city, and see a list of programming languages I might be interested in.
+* As a visitor on the Jobs Index page, I want to be able to read a summary of the jobs available
+* As a visitor on the Jobs Inex page, I want to be able to click on a job title, and be taken to a detail page for that job.
