@@ -62,39 +62,38 @@ fetch(<url>).then((rawResponse)=>{
 })
 ```
 
-So, for example on our Anime Index page, we need to make a request out to the Jikan api to get a list of results to show to the user.  Let's take a look at doing this from within our sample application:
+So, for example on our Anime Index page, we need to make a request out to the Jikan api based on the user input to get a list of results to show to the user.  Let's take a look at doing this from within our sample application contructor:
 
-```Javascript
-componentWillMount(){
-  fetch("https://api.nasa.gov/neo/rest/v1/feed?"+`start_date=${this.state.startDate}&api_key=${<your apikey>}`).then((rawResponse)=>{
-    // rawResponse.json() returns a promise that we pass along
-    return rawResponse.json()
-  }).then((parsedResponse) => {
-
-    // when this promise resolves, we can work with our data
-    let neoData = parsedResponse.near_earth_objects
-
-    let newAsteroids = []
-    Object.keys(neoData).forEach((date)=>{
-      neoData[date].forEach((asteroid) =>{
-        newAsteroids.push({
-          id: asteroid.neo_reference_id,
-          name: asteroid.name,
-          date: asteroid.close_approach_data[0].close_approach_date,
-          diameterMin: asteroid.estimated_diameter.feet.estimated_diameter_min.toFixed(0),
-          diameterMax: asteroid.estimated_diameter.feet.estimated_diameter_max.toFixed(0),
-          closestApproach: asteroid.close_approach_data[0].miss_distance.miles,
-          velocity: parseFloat(asteroid.close_approach_data[0].relative_velocity.miles_per_hour).toFixed(0),
-          distance: asteroid.close_approach_data[0].miss_distance.miles
-        })
-      })
-    })
-
-    // state is updated when promises are resolved
-    this.setState({asteroids: newAsteroids})
-  })
-}
+```bash
+cat -n src/pages/Topic.js |sed "7,29!d"
+```
+```result
+:      7	  constructor(props){
+:      8	    super(props)
+:      9	    const{ match } = props
+:     10	    const{ params } = match
+:     11	    this.state = {
+:     12	      type: params.type,
+:     13	      topic: params.topic,
+:     14	      loading: true,
+:     15	      works: [],
+:     16	    }
+:     17
+:     18	    fetch(`https://api.jikan.moe/v3/search/${params.type}?q=${params.topic}`)
+:     19	    .then((result)=> result.json())
+:     20	    .then((jsonBody)=>{
+:     21	      const{ results } = jsonBody
+:     22	      if(results){
+:     23	        this.setState({ works: results, loading: false })
+:     24	      }
+:     25	    })
+:     26	    .catch((e)=>{
+:     27	      this.setState({loading: false})
+:     28	    })
+:     29	  }
 ```
 
-# Challenges
-* Update the challenges you've worked on so far to pull live data from the API
+* Line: 14 - Set a loading state, so the user knows to be patient while we fetch data.
+* Line: 15 - We initialize state with an empty array
+* Line: 18 - 28 - We make the Fetch request (GET by default) and handle the response
+* Line: 26 - Each API will behave differently,  In this case, for the Jikan API, if no results are found, it returns a 404 response.  This is good for us, as we want to change behavior for the user in this situation.

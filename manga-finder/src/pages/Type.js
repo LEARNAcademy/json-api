@@ -10,24 +10,25 @@ class Type extends Component {
       type: params.type
     }
   }
-  
+
   render() {
     const{ type } = this.state
     return(
       <div>
+        <Link className='btn btn-primary' to='/'>Start Over</Link>
         <h1>Choose a Topic for {type}</h1>
-        <ul>
-          <li>
-            <Link to={`/type/${type}/topic/dragon+ball`}>Dragon Ball</Link>
+        <ul className='list-group'>
+          <li className='list-group-item'>
+            <Link className='btn btn-primary' to={`/type/${type}/topic/dragon+ball`}>Dragon Ball</Link>
           </li>
-          <li>
-            <Link to={`/type/${type}/topic/naruto`}>Naruto</Link>
+          <li className='list-group-item'>
+            <Link className='btn btn-primary' to={`/type/${type}/topic/attack+on+titan`}>Attack On Titan</Link>
           </li>
-          <li>
-            <Link to={`/type/${type}/topic/kochikame`}>KochiKame</Link>
+          <li className='list-group-item'>
+            <Link className='btn btn-primary' to={`/type/${type}/topic/kochikame`}>KochiKame</Link>
           </li>
-          <li>
-            <Link to={`/type/${type}/topic/oishinbo`}>Oishinbo</Link>
+          <li className='list-group-item'>
+            <Link className='btn btn-primary' to={`/type/${type}/topic/oishinbo`}>Oishinbo</Link>
           </li>
         </ul>
       </div>

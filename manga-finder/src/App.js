@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
+import './stylesheets/bootstrap.min.css'
+import './stylesheets/App.css'
+
 import Home from './pages/Home'
 import Topic from './pages/Topic'
 import Type from './pages/Type'
@@ -10,12 +13,14 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
-          <h1>Everything Anime / Manga</h1>
+        <div className='container'>
+          <div className='jumbotron'>
+            <h1>Everything Anime / Manga</h1>
+          </div>
           <Route path="/" exact component={Home} />
           <Route path="/type/:type" exact component={Type} />
           <Route path="/type/:type/topic/:topic" exact component={Topic} />
-          <Route path="/work/:id" component={Work} />
+          <Route path="/type/:type/topic/:topic/work/:id" component={Work} />
         </div>
       </Router>
     );
