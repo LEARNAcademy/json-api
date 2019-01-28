@@ -38,14 +38,14 @@ class Work extends Component {
 
             <h2>{work.title}</h2>
             <div className='card'>
-              <img src={work.image_url} className='card-img-top'/>
+              <img src={work.image_url} alt={work.title} className='card-img-top'/>
               <div className='card-body'>
                 <dl>
-                  <du>premiered</du>
-                  <dt>{work.premiered}</dt>
+                  <dt>premiered</dt>
+                  <dd>{work.premiered}</dd>
 
-                  <du>rating</du>
-                  <dt>{work.rating}</dt>
+                  <dt>rating</dt>
+                  <dd>{work.rating}</dd>
                 </dl>
                 <p>{work.synopsis}</p>
               </div>

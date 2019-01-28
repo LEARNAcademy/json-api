@@ -9,9 +9,6 @@ class Home extends Component {
         <h3>Start your search here.</h3>
         <ul className='list-group'>
           <li className='list-group-item'>
-            <Link className='btn btn-primary' to="/type/manga">Manga</Link>
-          </li>
-          <li className='list-group-item'>
             <Link className='btn btn-primary' to="/type/anime">Anime</Link>
           </li>
           <li className='list-group-item'>

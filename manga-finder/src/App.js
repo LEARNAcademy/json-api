@@ -15,7 +15,7 @@ class App extends Component {
       <Router>
         <div className='container'>
           <div className='jumbotron'>
-            <h1>Everything Anime / Manga</h1>
+            <h1>Everything Anime</h1>
           </div>
           <Route path="/" exact component={Home} />
           <Route path="/type/:type" exact component={Type} />
